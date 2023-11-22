@@ -22,10 +22,13 @@
     <div class="centerForm">
         <?php if (isset($_SESSION['status']) && $_SESSION['status'] == 'success'): ?>
             <div class="success">
-                <span>
-                    <?= $_SESSION['message'] ?>
-                </span>
-                <i class="fa-regular fa-circle-xmark" onclick="this.parentElement.remove()"></i>
+                <?= $_SESSION['message'] ?>
+            </div>
+        <?php endif; ?>
+
+        <?php if (isset($_SESSION['status']) && $_SESSION['status'] == 'mainError'): ?>
+            <div class="mainError">
+                <?= $_SESSION['message'] ?>
             </div>
         <?php endif; ?>
 
@@ -54,7 +57,7 @@
             </div>
             <button type="submit">Login</button>
         </form>
-        <div class="text-center dont-have">Don't have an account? <a href="registerForm.php"></a></div>
+
 
 
         <?php

@@ -28,7 +28,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['errors'] = $errors;
         header('Location:loginForm.php');
     } else {
+        require_once 'common/connect.php';
 
+        $user = loginUser($email, $password);
+
+        if ($user) {
+            $_SESSION['status'] = 'success';
+            $_SESSION['message'] = 'You logged in';
+            $_SESSION['name'] = $user;
+            header("Location: profile.php");
+
+        } else {
+            $_SESSION['status'] = 'mainError';
+            $_SESSION['message'] = 'No user with such email and password';
+            header('Location: loginForm.php');
+        }
     }
 }
 

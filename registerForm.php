@@ -43,24 +43,33 @@
                 <?php endif; ?>
             </div>
             <div class="field-group">
-                <label for="password">Password</label>
-                <input type="password" name="password" id="password">
-                <?php if ($hasErrors && isset($_SESSION['errors']['password'])): ?>
+                <label for="phone">Phone</label>
+                <input type="text" name="phone" id="phone">
+                <?php if ($hasErrors && isset($_SESSION['errors']['phone'])): ?>
                     <p>
-                        <?= $_SESSION['errors']['password'] ?>
+                        <?= $_SESSION['errors']['phone'] ?>
                     </p>
                 <?php endif; ?>
-            </div>
-            <div class="field-group">
-                <label for="confirm_password">Confirm password</label>
-                <input type="password" name="confirm_password" id="confirm_password">
-                <?php if ($hasErrors && isset($_SESSION['errors']['confirm_password'])): ?>
-                    <p>
-                        <?= $_SESSION['errors']['confirm_password'] ?>
-                    </p>
-                <?php endif; ?>
-            </div>
-            <button type="submit">Register</button>
+
+                <div class="field-group">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password">
+                    <?php if ($hasErrors && isset($_SESSION['errors']['password'])): ?>
+                        <p>
+                            <?= $_SESSION['errors']['password'] ?>
+                        </p>
+                    <?php endif; ?>
+                </div>
+                <div class="field-group">
+                    <label for="confirm_password">Confirm password</label>
+                    <input type="password" name="confirm_password" id="confirm_password">
+                    <?php if ($hasErrors && isset($_SESSION['errors']['confirm_password'])): ?>
+                        <p>
+                            <?= $_SESSION['errors']['confirm_password'] ?>
+                        </p>
+                    <?php endif; ?>
+                </div>
+                <button type="submit">Register</button>
         </form>
     </div>
 

@@ -5,8 +5,9 @@ session_start();
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name = $_POST['name'] ?? '';
     $email = $_POST['email'] ?? '';
+    $phone = $_POST['phone'] ?? '';
     $password = $_POST['password'] ?? '';
-    $confirm_passwrod = $_POST['confirm_passwrod'] ?? '';
+    $confirm_passwrod = $_POST['confirm_password'] ?? '';
 
     $errors = [];
 
@@ -18,6 +19,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL))
             $errors['email'] = 'Invalid email format';
+    }
+    if (empty($phone)) {
+        $errors['phone'] = 'Phone is empty';
     }
 
     if (empty($password)) {
@@ -40,8 +44,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($errors) {
         $_SESSION['status'] = 'error';
         $_SESSION['errors'] = $errors;
-        header('Location:registerForm.php');
+        header('Location: registerForm.php');
     } else {
+        require_once 'common/connect.php';
+
+        $isReg = registerUser($email, $name, $phone, $password);
+
+        if ($isReg) {
+            $_SESSION['status'] = 'success';
+            $_SESSION['message'] = 'You have registered';
+            header('Location: loginForm.php');
+        } else {
+            $_SESSION['status'] = 'error';
+            $_SESSION['errors'] = ['email' => 'This email is busy'];
+            header('Location: registerForm.php');
+        }
+
 
     }
 }
