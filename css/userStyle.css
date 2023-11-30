@@ -1,0 +1,112 @@
+.custom-centerForm {
+  max-width: 400px;
+  margin: 0 auto;
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.custom-form {
+  margin-bottom: 20px;
+}
+
+.custom-success {
+  color: green;
+  margin-bottom: 20px;
+}
+
+.custom-mainError {
+  color: red;
+  margin-bottom: 20px;
+}
+
+.errors {
+  color: red;
+}
+
+.error {
+  color: red;
+}
+
+.custom-btn {
+  cursor: pointer;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+}
+
+.custom-btn:hover {
+  background-color: #0056b3;
+}
+
+.custom-checkbox-group {
+  display: flex;
+  align-items: center;
+}
+
+.custom-form input[type="checkbox"] {
+  margin-right: 5px;
+  margin-bottom: 10px;
+}
+
+.custom-form input[type="text"],
+.custom-form input[type="email"],
+.custom-form input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.container_profile {
+  margin-top: 100px;
+}
+
+/* Добавляем свои классы и центрирование */
+.container_profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* height: 100vh; */
+}
+
+.custom-card {
+  max-width: 400px;
+  width: 100%;
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.custom-card-header {
+  text-align: center;
+}
+
+.custom-avatar {
+  width: 100px; /* Размер аватара по вашему выбору */
+  height: 100px;
+  border-radius: 50%;
+  margin: 0 auto;
+  display: block;
+}
+
+.custom-btn-logout,
+.custom-btn-change-password {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+}
+
+/* Переопределяем стили Bootstrap */
+.btn-logout,
+.btn-change-password {
+  width: auto;
+  margin-top: 0;
+}

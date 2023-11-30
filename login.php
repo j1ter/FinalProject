@@ -35,8 +35,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($user) {
             $_SESSION['status'] = 'success';
             $_SESSION['message'] = 'You logged in';
-            $_SESSION['name'] = $user;
-            header("Location: profile.php");
+            $_SESSION['user'] = $user;
+            header("Location: index.php");
 
         } else {
             $_SESSION['status'] = 'mainError';

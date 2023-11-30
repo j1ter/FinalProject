@@ -5,73 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Form</title>
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-
-    <style>
-        body {
-            padding: 20px;
-            font-family: 'Arial', sans-serif;
-        }
-
-        .centerForm {
-            max-width: 400px;
-            margin: 0 auto;
-            background-color: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .success {
-            color: green;
-            margin-bottom: 20px;
-        }
-
-        .mainError {
-            color: red;
-            margin-bottom: 20px;
-        }
-
-        button {
-            cursor: pointer;
-            padding: 10px 20px;
-            font-size: 16px;
-            border-radius: 5px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-        }
-
-        input[type="checkbox"] {
-            margin-right: 5px;
-            margin-bottom: 10px;
-        }
-
-        input[type="text"],
-        input[type="email"],
-        input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ced4da;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
-    </style>
+    <?php require_once 'common/inhead.php' ?>
 </head>
 
 <body>
@@ -86,43 +20,44 @@
 
     ?>
 
-    <div class="centerForm">
+    <div class="custom-centerForm" style="margin-top: 200px;">
         <?php if (isset($_SESSION['status']) && $_SESSION['status'] == 'success'): ?>
-            <div class="success">
+            <div class="custom-success">
                 <?= $_SESSION['message'] ?>
             </div>
         <?php endif; ?>
 
         <?php if (isset($_SESSION['status']) && $_SESSION['status'] == 'mainError'): ?>
-            <div class="mainError">
+            <div class="custom-mainError">
                 <?= $_SESSION['message'] ?>
             </div>
         <?php endif; ?>
 
-        <form action="login.php" method="POST">
-            <div class="form-group">
+        <form action="login.php" method="POST" class="custom-form">
+            <div class="custom-form-group">
                 <label for="email">Email</label>
                 <input type="email" name="email" id="email">
                 <?php if ($hasError && isset($_SESSION['errors']['email'])): ?>
-                    <p>
+                    <p class='errors'>
                         <?= $_SESSION['errors']['email'] ?>
                     </p>
                 <?php endif; ?>
             </div>
-            <div class="form-group">
+            <div class="custom-form-group">
                 <label for="password">Password</label>
                 <input type="password" name="password" id="password">
                 <?php if ($hasError && isset($_SESSION['errors']['password'])): ?>
-                    <p>
+                    <p class='errors'>
                         <?= $_SESSION['errors']['password'] ?>
                     </p>
                 <?php endif; ?>
             </div>
-            <div class="form-group">
+            <div class="custom-form-group">
                 <input type="checkbox" name="remember" value="yes">
                 Remember me
+                <a href="registerForm.php">Don't have account?</a>
             </div>
-            <button type="submit">Login</button>
+            <button type="submit" class="custom-btn">Login</button>
         </form>
 
 
