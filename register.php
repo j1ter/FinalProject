@@ -2,6 +2,8 @@
 
 session_start();
 
+require_once 'common/connect.php';
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name = $_POST['name'] ?? '';
     $email = $_POST['email'] ?? '';
@@ -41,14 +43,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($confirm_passwrod != $password) {
         $errors['confirm_password'] = 'Password does not match';
     }
+    $avatar = $_FILES['avatar'];
+    $avatarDirectory = 'images/avatars/';
+
+    // Вызываем функцию uploadImage
+    $uploadAvatarName = uploadImage('avatar', $avatarDirectory);
+
+    if ($uploadAvatarName === 'Error uploading image' || $uploadAvatarName === 'Invalid file type' || $uploadAvatarName === 'File size is too big. Choose a file less than 1MB.' || $uploadAvatarName === 'Error uploading file.') {
+        // Обработка ошибок при загрузке изображения
+        $_SESSION['status'] = 'error';
+        $_SESSION['errors'] = ['avatar' => $uploadAvatarName];
+        header('Location: registerForm.php');
+        exit;
+    }
+
+
+
     if ($errors) {
         $_SESSION['status'] = 'error';
         $_SESSION['errors'] = $errors;
         header('Location: registerForm.php');
     } else {
-        require_once 'common/connect.php';
 
-        $isReg = registerUser($email, $name, $phone, $password);
+
+        $isReg = registerUser($email, $name, $phone, $password, $uploadAvatarName !== null ? $uploadAvatarName : 'noimage.jpg');
 
         if ($isReg) {
             $_SESSION['status'] = 'success';

@@ -6,11 +6,6 @@ require_once 'common/connect.php';
 
 $category = getCategory();
 
-$property_id = $_GET['property_id'] ?? '';
-
-if ($property_id)
-    $property = getOneProperty($property_id);
-
 ?>
 
 <!DOCTYPE html>
@@ -19,7 +14,7 @@ if ($property_id)
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Edit Property</title>
+    <title>Create Property</title>
     <?php require_once 'common/inhead.php'; ?>
 </head>
 
@@ -37,25 +32,24 @@ if ($property_id)
         <?php endif; ?>
         <div class="row">
             <div class="col-lg-8">
-                <form action="editProperty.php" method="POST">
-                    <input type="hidden" name="id" value="<?= $property['id'] ?>">
+                <form action="editProModerator.php" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="status" value="pending">
+
                     <div class="form-group">
                         <label for="title">Title</label>
-                        <input value="<?= isset($property['title']) ? $property['title'] : '' ?>" type="text"
-                            name="title" class="form-control" id="title" placeholder="Enter Title">
+                        <input type="text" name="title" class="form-control" id="title" placeholder="Enter Title">
                         <?php if ($hasErrors && isset($_SESSION['errors']['title'])): ?>
                             <p class="errors">
-                                <?= $_SESSION['errors']['title'] ?? '' ?>
+                                <?= $_SESSION['errors']['title'] ?>
                             </p>
                         <?php endif; ?>
                     </div>
                     <div class="form-group">
                         <label for="content">Content</label>
-                        <textarea class="form-control" name="content" id="content"
-                            rows="4"><?= isset($property['pcontent']) ? $property['pcontent'] : '' ?></textarea>
+                        <textarea class="form-control" name="content" id="content" rows="4"></textarea>
                         <?php if ($hasErrors && isset($_SESSION['errors']['content'])): ?>
                             <p class="errors">
-                                <?= $_SESSION['errors']['content'] ?? '' ?>
+                                <?= $_SESSION['errors']['content'] ?>
                             </p>
                         <?php endif; ?>
                     </div>
@@ -64,14 +58,14 @@ if ($property_id)
                         <select name="category_id" class="form-control" id="categoryInput">
                             <option value="" selected disabled>Select a category</option>
                             <?php foreach ($category as $cat): ?>
-                                <option value="<?= $cat['id'] ?>" <?= isset($property['category_id']) && $property['category_id'] == $cat['id'] ? 'selected' : '' ?>>
+                                <option value="<?= $cat['id'] ?>">
                                     <?= $cat['name'] ?>
                                 </option>
                             <?php endforeach; ?>
                         </select>
                         <?php if ($hasErrors && isset($_SESSION['errors']['category_id'])): ?>
                             <p class="errors">
-                                <?= $_SESSION['errors']['category_id'] ?? '' ?>
+                                <?= $_SESSION['errors']['category_id'] ?>
                             </p>
                         <?php endif; ?>
                     </div>
@@ -107,57 +101,60 @@ if ($property_id)
                     </div> -->
                     <div class="form-group">
                         <label for="priceInput">Price</label>
-                        <input value="<?= isset($property['price']) ? $property['price'] : '' ?>" type="text"
-                            name="price" class="form-control" id="priceInput" placeholder="Enter Price">
+                        <input type="text" name="price" class="form-control" id="priceInput" placeholder="Enter Price">
                         <?php if ($hasErrors && isset($_SESSION['errors']['content'])): ?>
                             <p class="errors">
-                                <?= $_SESSION['errors']['content'] ?? '' ?>
+                                <?= $_SESSION['errors']['content'] ?>
                             </p>
                         <?php endif; ?>
                     </div>
                     <div class="form-group">
                         <label for="cityInput">City</label>
-                        <input value="<?= isset($property['city']) ? $property['city'] : '' ?>" type="text" name="city"
-                            class="form-control" id="cityInput" placeholder="Enter City">
+                        <input type="text" name="city" class="form-control" id="cityInput" placeholder="Enter City">
                         <?php if ($hasErrors && isset($_SESSION['errors']['city'])): ?>
                             <p class="errors">
-                                <?= $_SESSION['errors']['city'] ?? '' ?>
+                                <?= $_SESSION['errors']['city'] ?>
                             </p>
                         <?php endif; ?>
                     </div>
                     <div class="form-group">
                         <label for="asizeInput">Area size</label>
-                        <input value="<?= isset($property['asize']) ? $property['asize'] : '' ?>" type="text"
-                            name="asize" class="form-control" id="asizeInput" placeholder="Enter Area size">
+                        <input type="text" name="asize" class="form-control" id="asizeInput"
+                            placeholder="Enter Area size">
                         <?php if ($hasErrors && isset($_SESSION['errors']['asize'])): ?>
                             <p class="errors">
-                                <?= $_SESSION['errors']['asize'] ?? '' ?>
+                                <?= $_SESSION['errors']['asize'] ?>
                             </p>
                         <?php endif; ?>
                     </div>
                     <div class="form-group">
                         <label for="locationInput">Address</label>
-                        <input value="<?= isset($property['location']) ? $property['location'] : '' ?>" type="text"
-                            name="location" class="form-control" id="locationInput" placeholder="Enter Address">
+                        <input type="text" name="location" class="form-control" id="locationInput"
+                            placeholder="Enter Address">
                         <?php if ($hasErrors && isset($_SESSION['errors']['location'])): ?>
                             <p class="errors">
-                                <?= $_SESSION['errors']['location'] ?? '' ?>
+                                <?= $_SESSION['errors']['location'] ?>
                             </p>
                         <?php endif; ?>
                     </div>
-                    <div class="form-group py-3">
-                        <button type="submit" class="btn btn-success">Update</button>
+                    <div class="custom-form-group">
+                        <label for="pimage">Property Image</label>
+                        <input type="file" name="pimage" id="pimage">
+                        <?php if ($hasErrors && isset($_SESSION['errors']['pimage'])): ?>
+                            <p class="errors">
+                                <?= $_SESSION['errors']['pimage'] ?>
+                            </p>
+                        <?php endif; ?>
                     </div>
 
-                </form>
-                <form onsubmit="return confirm('Realy want to delete?');" action="deleteForm.php" method="POST">
-                    <input type="hidden" name="id" value="<?= $property['id'] ?>">
-                    <button type="submit" class="btn btn-danger">Delete</button>
+
+                    <div class="form-group py-3">
+                        <button type="submit" class="btn btn-primary">Create</button>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
-
 
     <?php
 
@@ -166,6 +163,9 @@ if ($property_id)
     unset($_SESSION['message']);
 
     ?>
+
+
+
 
 
 

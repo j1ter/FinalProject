@@ -28,7 +28,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['errors'] = $errors;
         header('Location:loginForm.php');
     } else {
+
+
         require_once 'common/connect.php';
+
+        if (isset($_POST['remember']) && $_POST['remember'] == 'yes') {
+            setcookie('remember_email', $email, time() + (86400 * 30), '/');
+            setcookie('remember_password', $password, time() + (86400 * 30), '/');
+        }
 
         $user = loginUser($email, $password);
 
@@ -36,7 +43,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['status'] = 'success';
             $_SESSION['message'] = 'You logged in';
             $_SESSION['user'] = $user;
-            header("Location: index.php");
+            if ($user['role'] == 'user') {
+                header("Location: index.php");
+            } else if ($user['role'] == 'moderator') {
+                header("Location: admin/indexModerator.php");
+            } else {
+                header("Location: admin/indexAdmin.php");
+            }
 
         } else {
             $_SESSION['status'] = 'mainError';

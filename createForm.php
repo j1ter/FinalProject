@@ -32,7 +32,9 @@ $category = getCategory();
         <?php endif; ?>
         <div class="row">
             <div class="col-lg-8">
-                <form action="addProperty.php" method="POST">
+                <form action="addProperty.php" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="status" value="pending">
+
                     <div class="form-group">
                         <label for="title">Title</label>
                         <input type="text" name="title" class="form-control" id="title" placeholder="Enter Title">
@@ -135,6 +137,17 @@ $category = getCategory();
                             </p>
                         <?php endif; ?>
                     </div>
+                    <div class="custom-form-group">
+                        <label for="pimage">Property Image</label>
+                        <input type="file" name="pimage" id="pimage">
+                        <?php if ($hasErrors && isset($_SESSION['errors']['pimage'])): ?>
+                            <p class="errors">
+                                <?= $_SESSION['errors']['pimage'] ?>
+                            </p>
+                        <?php endif; ?>
+                    </div>
+
+
                     <div class="form-group py-3">
                         <button type="submit" class="btn btn-primary">Create</button>
                     </div>

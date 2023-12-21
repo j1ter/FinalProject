@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $errors['category_id'] = "You haven't selected a category";
         $_SESSION['status'] = 'error';
         $_SESSION['errors'] = $errors;
-        header('Location: createForm.php');
+        header('Location: createFormModerator.php');
     }
     if (empty($price)) {
         $errors['price'] = 'Price is empty';
@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $errors['location'] = 'Address is empty';
     }
     $pimage = $_FILES['pimage'];
-    $pimageDirectory = 'images/properties/';
+    $pimageDirectory = '../images/properties/';
     $uploadPimageName = uploadImage('pimage', $pimageDirectory);
     var_dump($uploadPimageName);
 
@@ -55,25 +55,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit;
     }
 
-
-
     if ($errors) {
         $_SESSION['status'] = 'error';
         $_SESSION['errors'] = $errors;
-        header('Location: createForm.php');
+        header('Location: createFormModerator.php');
     } else {
         $result = createProperty($title, $content, $category_id, $user['id'], $price, $city, $asize, $location, $status, $uploadPimageName !== null ? $uploadPimageName : 'noimage.jpg');
         if ($result) {
-            $propertyId = lastPropertyId();
-            addUserProperty($user['id'], $propertyId);
-
             $_SESSION['status'] = 'success';
             $_SESSION['message'] = 'You created property successfully!';
-            header('Location: index.php');
+            header('Location: indexModerator.php');
         } else {
             $_SESSION['status'] = 'errors';
             $_SESSION['errors'] = $errors;
-            header('Location: createForm.php');
+            header('Location: createFormModerator.php');
         }
     }
 }

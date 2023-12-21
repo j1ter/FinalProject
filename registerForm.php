@@ -24,7 +24,7 @@
             </div>
         <?php endif; ?>
 
-        <form action="register.php" method="POST" class="custom-form">
+        <form action="register.php" method="POST" class="custom-form" enctype="multipart/form-data">
             <div class="custom-form-group">
                 <label for="name">Name</label>
                 <input type="text" name="name" id="name">
@@ -70,7 +70,16 @@
                         </p>
                     <?php endif; ?>
                 </div>
-                <button type="submit" class="custom-btn">Register</button>
+                <div class="custom-form-group">
+                    <label for="avatar">User avatar</label>
+                    <input type="file" name="avatar" id="avatar">
+                    <?php if ($hasErrors && isset($_SESSION['errors']['avatar'])): ?>
+                        <p class="errors">
+                            <?= $_SESSION['errors']['avatar'] ?>
+                        </p>
+                    <?php endif; ?>
+                </div>
+                <button type="submit" class="custom-btn mt-3">Register</button>
         </form>
     </div>
 
